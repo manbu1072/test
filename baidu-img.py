@@ -1,3 +1,4 @@
+#根据输入关键字趴取百度图片中的图。单线程版本。
 import json
 import itertools
 import urllib

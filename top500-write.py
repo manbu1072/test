@@ -1,10 +1,12 @@
+#获取酷狗TOP500的歌曲信息，并且写入文件
 import requests
 from bs4 import BeautifulSoup
 import time
 headers = {
     'User - Agent': 'Mozilla / 5.0(Linux;Android6.0;Nexus5 Build / MRA58N) AppleWebKit / 537.36(KHTML, likeGecko) Chrome / 65.0.3325.162MobileSafari / 537.36'
 }
-urls = ['http://www.kugou.com/yy/rank/home/{}-8888.html?from=rank'.format(str(i)) for i in range(1, 24)]
+f = open('F:/1.txt','a+')
+urls = ['http://www.kugou.com/yy/rank/home/{}-8888.html?from=rank'.format(str(i)) for i in range(1.24)]
 for url in urls:
     wb_data = requests.get(url,headers=headers)
     soup = BeautifulSoup(wb_data.text,'lxml')
@@ -16,6 +18,8 @@ for url in urls:
             '排名': rank.get_text().strip(),
             '歌手': title.get_text().split('-')[0],
             '歌名': title.get_text().split('-')[1],
-            '歌曲时间': time.get_text().strip()
+            '时间': time.get_text().strip()
         }
-        print(data)
+        datas = str(data)
+        f.write(datas+'\n')
+f.close()
